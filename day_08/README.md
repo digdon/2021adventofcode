@@ -10,7 +10,7 @@ I started off looking at the data and trying to figure out what information I co
 
 Like day 6, day 8 was an exercise in the description of the problem throwing in a little misdirection. I thought I was going to have to work the actual wire assignments, but it turns out that that's not the case....
 
-I followed a hint that talked about using sets to work it out. I grabbed some paper and worked out the differences between the values. 1, 4, 7, and 8 were easy, of course. Then we have a group of 5-letter signals, and a goupr of 6-letter signals. Those were trickier. I grabbed some paper and manually worked out the distinguishing characteristics. For example, for the 5-letter signals:
+I followed a hint that talked about using sets to work it out. 1, 4, 7, and 8 were easy, of course, because they are each of a unique length. Then we have a group of 5-letter signals, and a group of 6-letter signals. Those were trickier. I grabbed some paper and manually worked out the distinguishing characteristics. For example, for the 5-letter signals:
 * '3' contains c & f (which we will work out from '1')
 * '5' contains signals b & d (which we will work out from '4', which consists of c & f and b & d)
 * '2' contains neither of those full sets
