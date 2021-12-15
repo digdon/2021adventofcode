@@ -60,7 +60,10 @@ public class Day14 {
             Map<String, Long> nextPairCountMap = new HashMap<>();
             
             pairCountMap.forEach((key, count) -> {
+                // Find the transformation map, and increase the value of each pair in the mapping list
                 transformations.get(key).forEach(pair -> nextPairCountMap.compute(pair, (k, v) -> v == null ? count : v + count));
+                
+                // We know what letter has been added, based on the transformation. Increase that value too
                 letterCountMap.compute(addedLetter.get(key), (k, v) -> v == null ? 1 : v + count);
             });
             
