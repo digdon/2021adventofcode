@@ -5,15 +5,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="day_07/src"/>
-	<classpathentry kind="src" path="day_08/src"/>
-	<classpathentry kind="src" path="day_09/src"/>
-	<classpathentry kind="src" path="day_10/src"/>
-	<classpathentry kind="src" path="day_11/src"/>
-	<classpathentry kind="src" path="day_12/src"/>
-	<classpathentry kind="src" path="day_13/src"/>
-	<classpathentry kind="src" path="day_14/src"/>
-	<classpathentry kind="src" path="day_15/src"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
