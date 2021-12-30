@@ -35,12 +35,13 @@ public class Day20 {
             
             for (int x = 0; x < line.length(); x++) {
                 if (line.charAt(x) == '#') {
-                    image.setPixel(new Point(x, y), true);
+                    image.lightPixel(new Point(x, y));
                 }
             }
         }
 
         boolean infinityValue = false;
+        long start = System.currentTimeMillis();
         
         // Process the image
         for (int i = 0; i < 50; i++) {
@@ -57,18 +58,18 @@ public class Day20 {
         
         displayImage(image);
         System.out.println("Part 2: " + image.lightedPixels.size());
+        System.out.println(System.currentTimeMillis() - start);
     }
 
     private static Image processImage(Image image, boolean[] enhancement, boolean infinityValue) {
         Image newImage = new Image();
+        Point tempPoint = new Point(0, 0);
 
         // Examine every pixel in the input image. However, because the input image affects pixels outside
-        // if its immediate range, we need to expand in each direction by 1 pixel
+        // its immediate range, we need to expand in each direction by 1 pixel
         for (int y = image.minY - 1; y <= image.maxY + 1; y++) {
             for (int x = image.minX - 1; x <= image.maxX + 1; x++) {
                 // This is the current pixel we're examining/calculating/processing
-                Point point = new Point(x, y);
-                
                 // We need to grab the values of the 9 pixels that surround it (8 + the pixel itself)
                 StringBuilder sb = new StringBuilder();
                 
@@ -80,7 +81,9 @@ public class Day20 {
                             || newY < image.minY || newY > image.maxY) {
                         sb.append(infinityValue ? 1 : 0);
                     } else {
-                        sb.append(image.isPixelLit(new Point(newX, newY)) ? 1 : 0);
+                        tempPoint.x = newX;
+                        tempPoint.y = newY;
+                        sb.append(image.isPixelLit(tempPoint) ? 1 : 0);
                     }
                 }
                 
@@ -88,7 +91,9 @@ public class Day20 {
                 int index = Integer.parseInt(sb.toString(), 2);
                 
                 // Set the current pixel in the new image to the value indicated by the index
-                newImage.setPixel(point, enhancement[index]);
+                if (enhancement[index]) {
+                    newImage.lightPixel(new Point(x, y));
+                }
             }
         }
         
@@ -96,9 +101,13 @@ public class Day20 {
     }
     
     private static void displayImage(Image image) {
+        Point tempPoint = new Point(0, 0);
+        
         for (int y = image.minY; y <= image.maxY; y++) {
             for (int x = image.minX; x <= image.maxX; x++) {
-                System.out.print(image.isPixelLit(new Point(x, y)) ? '#' : '.');
+                tempPoint.x = x;
+                tempPoint.y = y;
+                System.out.print(image.isPixelLit(tempPoint) ? '#' : '.');
             }
             
             System.out.println();
@@ -117,46 +126,6 @@ public class Day20 {
             {  1,  1}
     };
     
-    static class ImageOrig {
-        int minX = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxY = Integer.MIN_VALUE;
-        Set<String> lightedPixels = new HashSet<>();
-        
-        void setPixel(int x, int y, boolean light) {
-            if (x < minX) {
-                minX = x;
-            }
-            
-            if (x > maxX) {
-                maxX = x;
-            }
-            
-            if (y < minY) {
-                minY = y;
-            }
-            
-            if (y > maxY) {
-                maxY = y;
-            }
-            
-            if (light) {
-                lightedPixels.add(generateLocation(x, y));
-            } else {
-                lightedPixels.remove(generateLocation(x, y));
-            }
-        }
-        
-        boolean isPixelLit(int x, int y) {
-            return lightedPixels.contains(generateLocation(x, y));
-        }
-
-        private String generateLocation(int x, int y) {
-            return String.format("%d,%d", x, y);
-        }
-    }
-    
     static class Image {
         int minX = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
@@ -164,7 +133,7 @@ public class Day20 {
         int maxY = Integer.MIN_VALUE;
         Set<Point> lightedPixels = new HashSet<>();
         
-        void setPixel(Point point, boolean light) {
+        void lightPixel(Point point) {
             if (point.x < minX) {
                 minX = point.x;
             }
@@ -181,11 +150,7 @@ public class Day20 {
                 maxY = point.y;
             }
             
-            if (light) {
-                lightedPixels.add(point);
-            } else {
-                lightedPixels.remove(point);
-            }
+            lightedPixels.add(point);
         }
         
         boolean isPixelLit(Point point) {
