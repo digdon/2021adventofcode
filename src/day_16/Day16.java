@@ -89,27 +89,23 @@ public class Day16 {
             }
             
             return max;
-        } else if (packet.type == 5) {
-            // GREATER THAN operator
-            long value1 = getPacketValue(packet.subPackets.get(0));
-            long value2 = getPacketValue(packet.subPackets.get(1));
-            
-            return value1 > value2 ? 1 : 0;
-        } else if (packet.type == 6) {
-            // LESS THAN operator
-            long value1 = getPacketValue(packet.subPackets.get(0));
-            long value2 = getPacketValue(packet.subPackets.get(1));
-            
-            return value1 < value2 ? 1 : 0;
-        } else if (packet.type == 7) {
-            // EQUALS operator
-            long value1 = getPacketValue(packet.subPackets.get(0));
-            long value2 = getPacketValue(packet.subPackets.get(1));
-            
-            return (value1 == value2) ? 1 : 0;
-        } else {
+        } else if (packet.type == 4) {
             // Literal value
             return packet.value;
+        } else {
+            long value1 = getPacketValue(packet.subPackets.get(0));
+            long value2 = getPacketValue(packet.subPackets.get(1));
+            
+            if (packet.type == 5) {
+                // GREATER THAN operator
+                return value1 > value2 ? 1 : 0;
+            } else if (packet.type == 6) {
+                // LESS THAN operator
+                return value1 < value2 ? 1 : 0;
+            } else { // if (packet.type == 7) {
+                // EQUALS operator
+                return (value1 == value2) ? 1 : 0;
+            }
         }
     }
     
