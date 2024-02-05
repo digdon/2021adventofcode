@@ -44,13 +44,13 @@ public class Day22 {
             steps.add(new Step(on, new Cuboid(x1, x2, y1, y2, z1, z2)));
         }
 
-        // Part 1 stuff
         List<Cuboid> part1CubeList = new ArrayList<>();
         List<Cuboid> part2CubeList = new ArrayList<>();
         
         for (Step step : steps) {
             Cuboid cube = step.cuboid();
-            
+
+            // For part 1, we only process steps with cuboids within the -50 to 50 range
             if (cube.x1() >= -50 && cube.x2() <= 50
                     && cube.y1() >= -50 && cube.y2() <= 50
                     && cube.z1() >= -50 && cube.y2() <= 50) {
