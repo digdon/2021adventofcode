@@ -70,7 +70,7 @@ public class Day22 {
         for (Cuboid cuboid : onCubeList) {
             // check to see if the step cuboid overlaps with the current cuboid from the list
             if (doesOverlap(step.cuboid(), cuboid) == false) {
-                // No overlap, add original cuboid to list
+                // No overlap, add unmodified cuboid to new list
                 newCubeList.add(cuboid);
                 continue;
             }
@@ -79,10 +79,10 @@ public class Day22 {
             
             if (step.on() && containedBy(step.cuboid(), cuboid)) {
                 // step cuboid is fully contained by current cuboid
-                // because step is to turn on, we can just keep current cuboid
+                // and because step is to turn on, we can just keep current cuboid
                 newCubeList.add(cuboid);
-            } else if (fullyContains(step.cuboid(), cuboid)) {
-                // step fully contains current - regardless of whether step is on or off
+            } else if (containedBy(cuboid, step.cuboid())) {
+                // current cuboid is fully contained by step cuboid - regardless of whether step is on or off
                 // we just drop the current cuboid
             } else {
                 // step cuboid partially overlaps current cuboid - break up current to make space for step
@@ -113,12 +113,6 @@ public class Day22 {
         return first.x1() >= second.x1() && first.x2() <= second.x2()
                 && first.y1() >= second.y1() && first.y2() <= second.y2()
                 && first.z1() >= second.z1() && first.z2() <= second.z2();
-    }
-
-    private static boolean fullyContains(Cuboid first, Cuboid second) {
-        return first.x1() <= second.x1() && first.x2() >= second.x2()
-                && first.y1() <= second.y1() && first.y2() >= second.y2()
-                && first.z1() <= second.z1() && first.z2() >= second.z2();
     }
     
     private static List<Cuboid> makeSpace(Cuboid orig, Cuboid next) {
