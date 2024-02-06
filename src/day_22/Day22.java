@@ -84,6 +84,7 @@ public class Day22 {
             } else if (containedBy(cuboid, step.cuboid())) {
                 // current cuboid is fully contained by step cuboid - regardless of whether step is on or off
                 // we just drop the current cuboid
+                continue;
             } else {
                 // step cuboid partially overlaps current cuboid - break up current to make space for step
                 newCubeList.addAll(makeSpace(cuboid, step.cuboid()));
