@@ -150,7 +150,7 @@ public class Day22 {
         }
         
         if (endZ < orig.z2()) {
-            pieces.add(new Cuboid(startX, endX, startY, endY, endZ + 1, orig.z2));
+            pieces.add(new Cuboid(startX, endX, startY, endY, endZ + 1, orig.z2()));
         }
         
         return pieces;
