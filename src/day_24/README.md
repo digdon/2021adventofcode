@@ -70,7 +70,7 @@ Let's look at 5 and 6:
   i5 + 6 - 2 = w
   i5 + 4 = w
 ```
-If i<sub>5</sub> = 1, then w = 5. These are both within the 1..9 range, so they're both valid. So are 2/6, 3/7, 4/8, 5/9. 6 is not a valid number for i<sub>5</sub> because then 2 would be 10, which is invalid.
+If i<sub>5</sub> = 1, then w = 5. These are both within the 1..9 range, so they're both valid. So are 2/6, 3/7, 4/8, 5/9. 6 is not a valid number for i<sub>5</sub> because then w would be 10, which is invalid.
 
 From there, it was easy to work through the rest of the digits and come up with the valid ranges for each digit. For part 1, we use the maximum values, so for 5 and 6, that would be 5 and 9, as shown above. For part 2, it's the minimum values, so again for 5 and 6, it would be 1 and 5. An interesting tidbit.... for 10/11, the only acceptable values are 1/9.
 
