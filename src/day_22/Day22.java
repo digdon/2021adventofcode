@@ -66,6 +66,7 @@ public class Day22 {
     
     private static List<Cuboid> applyStep(Step step, List<Cuboid> onCubeList) {
         List<Cuboid> newCubeList = new ArrayList<>();
+        boolean stepContained = false;
 
         for (Cuboid cuboid : onCubeList) {
             // check to see if the step cuboid overlaps with the current cuboid from the list
@@ -78,9 +79,10 @@ public class Day22 {
             // step cuboid DOES overlap
             
             if (step.on() && containedBy(step.cuboid(), cuboid)) {
-                // step cuboid is fully contained by current cuboid
-                // and because step is to turn on, we can just keep current cuboid
+                // step cuboid is fully contained by current cuboid and because step is to turn on, we can just keep current cuboid
+                // and lose the step entirely
                 newCubeList.add(cuboid);
+                stepContained = true;
             } else if (containedBy(cuboid, step.cuboid())) {
                 // current cuboid is fully contained by step cuboid - regardless of whether step is on or off
                 // we just drop the current cuboid
@@ -91,7 +93,7 @@ public class Day22 {
             }
         }
 
-        if (step.on()) {
+        if (step.on() && !stepContained) {
             newCubeList.add(step.cuboid());
         }
         
